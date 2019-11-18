@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components'
 // import dummyStore from './dummy-store.js';
 import { Switch, Route, Link } from 'react-router-dom';
@@ -8,6 +8,35 @@ import Notes from './Components/Notes';
 // const html = 
 
 function App() {
+
+  const [folders, setFolder] = useState({});
+  const [notes, setNotes] = useState({});
+
+  const [store, setStore] = useState({ folders: [], notes: [] });
+
+  useEffect(() => {
+    async function fetchData() {
+
+      // Start API Calls Asynchronously
+      const folderFetch = fetch(`http://localhost:9090/folders/`);
+      const notesFetch = fetch('http://localhost:9090/notes/')
+
+      // Get Results
+      const folderResult = await folderFetch;
+      const notesResult = await notesFetch;
+
+      // Convert to json
+      const folders = await folderResult.json();
+      const notes = await notesResult.json();
+
+      // Save to Store
+      setStore(store => ({ ...store, folders }));
+      setStore(store => ({ ...store, notes }));
+    }
+
+    fetchData();
+  }, []);
+
   return (
     <div className="App">
       <Switch>
@@ -21,11 +50,13 @@ function App() {
                 <Container>
                   <SidebarContainer>
                     <Sidebar
+                      store={store}
                       {...routeProps}
                     />
                   </SidebarContainer>
                   <NotesContainer>
                     <Notes
+                      store={store}
                       {...routeProps}
                     />
                   </NotesContainer>
