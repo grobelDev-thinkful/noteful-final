@@ -9,11 +9,22 @@ import Notes from './Components/Notes';
 
 function App() {
 
-  const [folders, setFolder] = useState({});
-  const [notes, setNotes] = useState({});
-
+  // Store State
   const [store, setStore] = useState({ folders: [], notes: [] });
+  const [storeChange, setStoreChange] = useState(0);
 
+  // Handles deletion of notes
+  async function deleteNote(note) {
+    await fetch(`http://localhost:9090/notes/${note.id}/`, {
+      method: 'DELETE',
+      headers: {
+        'content-type': 'application/json'
+      },
+    });
+    setStoreChange(storeChange => storeChange + 1);
+  }
+
+  // Grabs data from server.
   useEffect(() => {
     async function fetchData() {
 
@@ -35,7 +46,8 @@ function App() {
     }
 
     fetchData();
-  }, []);
+  }, [storeChange]);
+
 
   return (
     <div className="App">
@@ -57,12 +69,14 @@ function App() {
                   <NotesContainer>
                     <Notes
                       store={store}
+                      deleteNote={deleteNote}
                       {...routeProps}
                     />
                   </NotesContainer>
                 </Container>
               </>
-            } />
+            }
+          />
         )}
         <Route path="/" render={() => <div>404</div>}></Route>
       </Switch>
@@ -90,7 +104,7 @@ const SidebarContainer = styled.div`
   flex-direction: column;
   // width: 2000px;
   flex-grow: 1;
-  `
+`;
 
 const NotesContainer = styled.div`
   flex-direction: column;

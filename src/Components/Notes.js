@@ -7,6 +7,12 @@ export default function Notes(props) {
   let mode = props.match.path.split("/")[1];
   let store = props.store;
 
+  // let defaultNote = () => {
+  //   return (
+
+  //   )
+  // }
+
   if (mode === '') {
     return (
       <>
@@ -15,6 +21,7 @@ export default function Notes(props) {
             <Link to={`/note/${note.id}`}>
               {note.name} - {store.folders.find(folder => folder.id === note.folderId).name}
             </Link>
+            <button onClick={() => props.deleteNote(note)}>delete note</button>
           </li>
         )}
       </>
