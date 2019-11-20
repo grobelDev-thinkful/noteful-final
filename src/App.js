@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components'
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
 // import dummyStore from './dummy-store.js';
-import { Switch, Route, Link } from 'react-router-dom';
-import Sidebar from './Components/Sidebar';
-import Notes from './Components/Notes';
+import { Switch, Route, Link } from "react-router-dom";
+import Sidebar from "./Components/Sidebar";
+import Notes from "./Components/Notes";
+// import PropTypes from 'prop-types';
 
-// const html = 
+// const html =
 
 function App() {
-
   // Store State
   const [store, setStore] = useState({ folders: [], notes: [] });
   const [storeChange, setStoreChange] = useState(0);
@@ -16,10 +16,10 @@ function App() {
   // Handles deletion of notes
   async function deleteNote(note) {
     await fetch(`http://localhost:9090/notes/${note.id}/`, {
-      method: 'DELETE',
+      method: "DELETE",
       headers: {
-        'content-type': 'application/json'
-      },
+        "content-type": "application/json"
+      }
     });
     setStoreChange(storeChange => storeChange + 1);
   }
@@ -27,10 +27,9 @@ function App() {
   // Grabs data from server.
   useEffect(() => {
     async function fetchData() {
-
-      // Start API Calls Asynchronously
+      // Start API Calls asynchronously
       const folderFetch = fetch(`http://localhost:9090/folders/`);
-      const notesFetch = fetch('http://localhost:9090/notes/')
+      const notesFetch = fetch("http://localhost:9090/notes/");
 
       // Get Results
       const folderResult = await folderFetch;
@@ -43,26 +42,32 @@ function App() {
       // Save to Store
       setStore(store => ({ ...store, folders }));
       setStore(store => ({ ...store, notes }));
+      // console.log("grabbedData");
     }
 
+    // await fetchData();
     fetchData();
+    // console.log("grabbingData");
   }, [storeChange]);
-
 
   return (
     <div className="App">
       <Switch>
-        {['/', '/folder/:folderId', '/note/:noteId'].map(path =>
+        {["/", "/folder/:folderId", "/note/:noteId"].map(path => (
           <Route
             key={path}
-            exact path={path}
-            render={routeProps =>
+            exact
+            path={path}
+            render={routeProps => (
               <>
-                <Header><Link to="/">Noteful</Link></Header>
+                <Header>
+                  <Link to="/">Noteful</Link>
+                </Header>
                 <Container>
                   <SidebarContainer>
                     <Sidebar
                       store={store}
+                      setStoreChange={setStoreChange}
                       {...routeProps}
                     />
                   </SidebarContainer>
@@ -70,14 +75,15 @@ function App() {
                     <Notes
                       store={store}
                       deleteNote={deleteNote}
+                      setStoreChange={setStoreChange}
                       {...routeProps}
                     />
                   </NotesContainer>
                 </Container>
               </>
-            }
+            )}
           />
-        )}
+        ))}
         <Route path="/" render={() => <div>404</div>}></Route>
       </Switch>
     </div>
