@@ -53,8 +53,29 @@ export default function AddNote(props) {
       content: content
     };
 
-    addNote(newNote);
+    if (validateNewNote(newNote)) {
+      addNote(newNote);
+    }
   };
+
+  function validateNewNote(note) {
+    // Testing the name.
+    let nameValidation = stringValidator(note.name, "NAME");
+    let contentValidation = stringValidator(note.content, "CONTENT");
+
+    return nameValidation && contentValidation;
+
+    function stringValidator(string, name) {
+      if (string.length === 0 || string.length > 20) {
+        alert(`${name}: Length must be between 0-20 characters.`);
+        return false;
+      } else if (!/[a-zA-Z]/.test(string)) {
+        alert(`${name}: Must contain at least 1 letter.`);
+      } else {
+        return true;
+      }
+    }
+  }
 
   return (
     <form onSubmit={handleSubmit}>

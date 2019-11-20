@@ -28,11 +28,33 @@ export default function AddFolder(props) {
       props.setStoreChange(storeChange => storeChange + 1);
     }
 
-    addFolder({
+    let newFolder = {
       name: name,
       id: getUuid()
-    });
+    };
+
+    if (validateNewFolder(newFolder)) {
+      addFolder();
+    }
   };
+
+  function validateNewFolder(folder) {
+    // Testing the name.
+    let nameValidation = stringValidator(folder.name, "NAME");
+
+    return nameValidation;
+
+    function stringValidator(string, name) {
+      if (string.length === 0 || string.length > 20) {
+        alert(`${name}: Length must be between 0-20 characters.`);
+        return false;
+      } else if (!/[a-zA-Z]/.test(string)) {
+        alert(`${name}: Must contain at least 1 letter.`);
+      } else {
+        return true;
+      }
+    }
+  }
 
   return (
     <form onSubmit={handleSubmit}>

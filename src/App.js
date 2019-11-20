@@ -45,7 +45,6 @@ function App() {
       // console.log("grabbedData");
     }
 
-    // await fetchData();
     fetchData();
     // console.log("grabbingData");
   }, [storeChange]);

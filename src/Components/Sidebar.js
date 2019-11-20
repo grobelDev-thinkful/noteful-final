@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-// import dummyStore from '../dummy-store.js';
 import AddFolder from "./AddFolder";
 
 export default function Sidebar(props) {
@@ -27,10 +26,10 @@ export default function Sidebar(props) {
     let folder = store.folders.find(folder => folder.id === folderId);
     return (
       <>
-        <span>Folder {folder.name}</span>
         <p>
           <Link to="/">Go back</Link>
         </p>
+        <span>Folder {folder.name}</span>
       </>
     );
   }
