@@ -91,10 +91,9 @@ function App() {
 
 export default App;
 
-const Container = styled.div`
-  display: flex;
-  padding: 5px;
-`;
+// const SuperContainer = styled.div`
+//   width: 80vh;
+// `;
 
 const Header = styled.div`
   display: flex;
@@ -105,10 +104,17 @@ const Header = styled.div`
   background-color: #eff0f1;
 `;
 
+const Container = styled.div`
+  display: flex;
+  padding: 5px;
+  // width: 80vh;
+`;
+
 const SidebarContainer = styled.div`
   flex-direction: column;
-  // width: 2000px;
-  flex-grow: 1;
+  min-width: 300px;
+  padding: 5px;
+  // flex-grow: 1;
 `;
 
 const NotesContainer = styled.div`

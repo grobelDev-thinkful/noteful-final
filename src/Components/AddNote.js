@@ -13,6 +13,7 @@ export default function AddNote(props) {
   const [name, setName] = useState("");
   const [select, setSelect] = useState("NoName");
   const [content, setContent] = useState("");
+  const [addNoteClicked, setAddNoteClicked] = useState(false);
 
   let folders = props.store.folders;
 
@@ -78,23 +79,31 @@ export default function AddNote(props) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <p>Add Note:</p>
-      <span>name: </span>
-      <input value={name} onChange={e => setName(e.target.value)}></input>
-      <br></br>
-      <span>folder: </span>
-      <select onChange={e => setSelect(e.target.value)}>
-        {folders.map((folder, i) => (
-          <option key={`${i}-selectOption`} value={folder.name}>
-            {folder.name}
-          </option>
-        ))}
-      </select>
-      <br></br>
-      <span>content: </span>
-      <input value={content} onChange={e => setContent(e.target.value)}></input>
-      <button type="submit">Submit</button>
-    </form>
+    <>
+      <button onClick={() => setAddNoteClicked(true)}>Add Note:</button>
+      {addNoteClicked ? (
+        <form onSubmit={handleSubmit}>
+          <span>name: </span>
+          <input value={name} onChange={e => setName(e.target.value)}></input>
+          <br></br>
+          <span>folder: </span>
+          <select onChange={e => setSelect(e.target.value)}>
+            {folders.map((folder, i) => (
+              <option key={`${i}-selectOption`} value={folder.name}>
+                {folder.name}
+              </option>
+            ))}
+          </select>
+          <br></br>
+          <span>content: </span>
+          <input
+            value={content}
+            onChange={e => setContent(e.target.value)}
+          ></input>
+          <br></br>
+          <button type="submit">Submit</button>
+        </form>
+      ) : null}
+    </>
   );
 }

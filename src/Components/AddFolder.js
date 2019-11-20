@@ -12,6 +12,7 @@ const getUuid = () => {
 
 export default function AddFolder(props) {
   const [name, setName] = useState("");
+  const [addFolderClicked, setAddFolderClicked] = useState(false);
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -57,10 +58,18 @@ export default function AddFolder(props) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <p>Add Folder:</p>
-      <input name="name" value={name} onChange={e => setName(e.target.value)} />
-      <button type="submit">Submit</button>
-    </form>
+    <>
+      <button onClick={() => setAddFolderClicked(true)}>Add Folder:</button>
+      {addFolderClicked ? (
+        <form onSubmit={handleSubmit}>
+          <input
+            name="name"
+            value={name}
+            onChange={e => setName(e.target.value)}
+          />
+          <button type="submit">Submit</button>
+        </form>
+      ) : null}
+    </>
   );
 }
