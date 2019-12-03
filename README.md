@@ -3,7 +3,7 @@
 You'll need two separate terminal instances.
 
 1. npm install for each folder
-2. Run noteful-json-server (terminal 1)
+2. Run noteful-server (terminal 1)
 3. Run noteful-client (terminal 2)
 
 ---
