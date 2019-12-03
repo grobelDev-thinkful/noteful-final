@@ -1,3 +1,13 @@
+# Instructions
+
+You'll need two separate terminal instances.
+
+1. npm install for each folder
+2. Run noteful-json-server (terminal 1)
+3. Run noteful-client (terminal 2)
+
+---
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

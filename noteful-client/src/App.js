@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import styled from "styled-components";
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
 // import dummyStore from './dummy-store.js';
-import { Switch, Route, Link } from "react-router-dom";
-import Sidebar from "./Components/Sidebar";
-import Notes from "./Components/Notes";
+import { Switch, Route, Link } from 'react-router-dom';
+import Sidebar from './Components/Sidebar';
+import Notes from './Components/Notes';
 // import PropTypes from 'prop-types';
 
 // const html =
@@ -16,9 +16,9 @@ function App() {
   // Handles deletion of notes
   async function deleteNote(note) {
     await fetch(`http://localhost:9090/notes/${note.id}/`, {
-      method: "DELETE",
+      method: 'DELETE',
       headers: {
-        "content-type": "application/json"
+        'content-type': 'application/json'
       }
     });
     setStoreChange(storeChange => storeChange + 1);
@@ -29,7 +29,7 @@ function App() {
     async function fetchData() {
       // Start API Calls asynchronously
       const folderFetch = fetch(`http://localhost:9090/folders/`);
-      const notesFetch = fetch("http://localhost:9090/notes/");
+      const notesFetch = fetch('http://localhost:9090/notes/');
 
       // Get Results
       const folderResult = await folderFetch;
@@ -50,9 +50,9 @@ function App() {
   }, [storeChange]);
 
   return (
-    <div className="App">
+    <div className='App'>
       <Switch>
-        {["/", "/folder/:folderId", "/note/:noteId"].map(path => (
+        {['/', '/folder/:folderId', '/note/:noteId'].map(path => (
           <Route
             key={path}
             exact
@@ -60,7 +60,7 @@ function App() {
             render={routeProps => (
               <>
                 <Header>
-                  <Link to="/">Noteful</Link>
+                  <Link to='/'>Noteful</Link>
                 </Header>
                 <Container>
                   <SidebarContainer>
@@ -83,7 +83,7 @@ function App() {
             )}
           />
         ))}
-        <Route path="/" render={() => <div>404</div>}></Route>
+        <Route path='/' render={() => <div>404</div>}></Route>
       </Switch>
     </div>
   );
