@@ -40,8 +40,8 @@ function App() {
       const notes = await notesResult.json();
 
       // Save to Store
-      setStore(store => ({ ...store, folders }));
-      setStore(store => ({ ...store, notes }));
+      setStore(store => ({ ...store, folders, notes }));
+      // setStore(store => ({ ...store, notes }));
       // console.log("grabbedData");
     }
 
